@@ -56,16 +56,7 @@
 			String X_SWIFI_MGR_NO = request.getParameter("X_SWIFI_MGR_NO");
 			WifiInfoOption wifiInfoOpt = new WifiInfoOption();
 			WifiInfo wfInfo = wifiInfoOpt.wifiDetail(X_SWIFI_MGR_NO);
-				
 
-		//	if (wfInfo.getX_SWIFI_MGR_NO() == null) { // 관리번호가 없다면
-		//			PrintWriter script = response.getWriter();
-		//			script.println("<script>");
-		//			script.println("alert('와이파이 정보가 없습니다')");
-		//			script.println("location.href = 'NearWifiList.jsp'");
-		//			script.println("</script>");
-		//	}
-			
 		%>
 	<h2><b>와이파이 정보 구하기</b></h2>
 	<div>

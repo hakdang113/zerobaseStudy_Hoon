@@ -23,12 +23,8 @@
 	<%
 	
 		int bookmarkID = Integer.parseInt(request.getParameter("bookmarkID"));
-		// String BookmarkName = request.getParameter("bookmarkName");
-		// int RegisterNum = Integer.parseInt(request.getParameter("registerNum"));	
-			
-		
+
 		BookMarkGroup updateGroup = new BookMarkGroup(bookmarkID, bookMark.getBookmarkName(), bookMark.getRegisterNum());
-		//BookMarkGroup updateGroup = new BookMarkGroup(bookmarkID, BookmarkName, RegisterNum);
 		BookMarkOption bookMarkOption = new BookMarkOption();
 		
 		int result = bookMarkOption.editBookMarkGroup(updateGroup);
