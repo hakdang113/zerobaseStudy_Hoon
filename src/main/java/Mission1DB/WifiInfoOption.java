@@ -85,17 +85,6 @@ public class WifiInfoOption {
 				}
 
 
-				// close의 위치 중요
-				// close 중에도 예외가 발생할 수 있음
-				// try에 포함된 문장들을 수행하다가 특정한 조건에 걸려 다른 기능을 수행하게 되면
-				// close를 아래쪽에 위치시켰을 때 close까지 코드가 도달하지 못할 수 있다.
-				// 하지만, close는 반드시 실행되어야 하는 부분이므로
-				// 해결방법:  try, catch 중에서 finally를 이용하여 close 부분을 처리해준다.
-				// 하지만, finally 내부와 try 내부는 코드 상 다른 공간이므로,
-				// connection 객체, statement 객체, rs 객체를 try 앞쪽에서 한번 선언 해주고 try 안에서 객체를 완성시킨다.
-				// isClosed(), close도 예외를 발생시키므로 예외처리(try, catch로 감쌈)를 해주어야 한다.
-
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
