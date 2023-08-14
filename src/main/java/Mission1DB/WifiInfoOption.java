@@ -20,7 +20,7 @@ public class WifiInfoOption {
 	// WifiDAO
 	public WifiInfoOption() {
 		try {
-			String dbUrl = "jdbc:mariadb://192.168.219.102:3306/testdb3";
+			String dbUrl = "jdbc:mariadb://192.168.219.100:3306/testdb3";
 			String dbUserId = "testuser3";
 			String dbPassword = "zerobase";
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -36,7 +36,7 @@ public class WifiInfoOption {
 			
 			List<WifiInfo> wifiInfoList = new ArrayList<>();
 			
-			String sql = " select distinct * " + " from wifiinfo_total " + " limit 20 "; 
+			String sql = " select * " + " from wifiinfo_total " + " limit 0, 20 "; 
 			try {
 			pstmt = conn.prepareStatement(sql); // prepareStatement는 sql을 받아서 사용하므로 sql의 뒤쪽에 위치
 			rs = pstmt.executeQuery(); // 쿼리 수행
@@ -142,32 +142,33 @@ public class WifiInfoOption {
 		
 
 		// 전체 데이터 불러오기(DB 저장)
-		public Long LoadAllWifi(WifiInfo wifi) {
+		public String LoadAllWifi(WifiInfo wifi) {
 			String sql = " insert into wifiinfo_total" + 
-				     " (X_SWIFI_MGR_NO, X_SWIFI_WRDOFC, X_SWIFI_MAIN_NM, X_SWIFI_ADRES1, X_SWIFI_ADRES2," + 
+				     " (DISTANCE, X_SWIFI_MGR_NO, X_SWIFI_WRDOFC, X_SWIFI_MAIN_NM, X_SWIFI_ADRES1, X_SWIFI_ADRES2," + 
 					 " X_SWIFI_INSTL_FLOOR, X_SWIFI_INSTL_TY, X_SWIFI_INSTL_MBY, X_SWIFI_SVC_SE, X_SWIFI_CMCWR," +
-					 " X_SWIFI_CNSTC_YEAR, X_SWIFI_INOUT_DOOR, X_SWIFI_REMARS3, LNT, LAT, WORK_DTTM, list_total_count) " + 
-					 " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " ;
+					 " X_SWIFI_CNSTC_YEAR, X_SWIFI_INOUT_DOOR, X_SWIFI_REMARS3, LAT, LNT, WORK_DTTM, list_total_count) " + 
+					 " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " ;
 			try {
-				// 17열
+				// 18열
 				pstmt = conn.prepareStatement(sql); // prepareStatement는 sql을 받아서 사용하므로 sql의 뒤쪽에 위치
-				pstmt.setString(1, wifi.getX_SWIFI_MGR_NO());
-				pstmt.setString(2, wifi.getX_SWIFI_WRDOFC());
-				pstmt.setString(3, wifi.getX_SWIFI_MAIN_NM());
-				pstmt.setString(4, wifi.getX_SWIFI_ADRES1());
-				pstmt.setString(5, wifi.getX_SWIFI_ADRES2());
-				pstmt.setString(6, wifi.getX_SWIFI_INSTL_FLOOR());
-				pstmt.setString(7, wifi.getX_SWIFI_INSTL_TY());
-				pstmt.setString(8, wifi.getX_SWIFI_INSTL_MBY());
-				pstmt.setString(9, wifi.getX_SWIFI_SVC_SE());
-				pstmt.setString(10, wifi.getX_SWIFI_CMCWR());
-				pstmt.setString(11, wifi.getX_SWIFI_CNSTC_YEAR());
-				pstmt.setString(12, wifi.getX_SWIFI_INOUT_DOOR());
-				pstmt.setString(13, wifi.getX_SWIFI_REMARS3());
-				pstmt.setString(14, wifi.getLNT());
+				pstmt.setDouble(1, 0.0);
+				pstmt.setString(2, wifi.getX_SWIFI_MGR_NO());
+				pstmt.setString(3, wifi.getX_SWIFI_WRDOFC());
+				pstmt.setString(4, wifi.getX_SWIFI_MAIN_NM());
+				pstmt.setString(5, wifi.getX_SWIFI_ADRES1());
+				pstmt.setString(6, wifi.getX_SWIFI_ADRES2());
+				pstmt.setString(7, wifi.getX_SWIFI_INSTL_FLOOR());
+				pstmt.setString(8, wifi.getX_SWIFI_INSTL_TY());
+				pstmt.setString(9, wifi.getX_SWIFI_INSTL_MBY());
+				pstmt.setString(10, wifi.getX_SWIFI_SVC_SE());
+				pstmt.setString(11, wifi.getX_SWIFI_CMCWR());
+				pstmt.setString(12, wifi.getX_SWIFI_CNSTC_YEAR());
+				pstmt.setString(13, wifi.getX_SWIFI_INOUT_DOOR());
+				pstmt.setString(14, wifi.getX_SWIFI_REMARS3());
 				pstmt.setString(15, wifi.getLAT());
-				pstmt.setString(16, wifi.getWORK_DTTM());
-				pstmt.setLong(17, wifi.getList_total_count());
+				pstmt.setString(16, wifi.getLNT());
+				pstmt.setString(17, wifi.getWORK_DTTM());
+				pstmt.setString(18, wifi.getList_total_count());
 				
 				pstmt.addBatch();
 				pstmt.clearParameters();
@@ -185,10 +186,40 @@ public class WifiInfoOption {
 					e.printStackTrace();
 				}
 			}
+			
 			return wifi.getList_total_count();
 		}
 		
 		
+		// 거리 탭에 데이터 추가 함수
+		public int addDistanceToWifiInfo(double distance, String LaT, String LnT) {
+			String sql = " update wifiinfo_total set DISTANCE = ?  where LAT = ? and LNT ?";
+ 					  
+			try {
+				// 17열
+				pstmt = conn.prepareStatement(sql); // prepareStatement는 sql을 받아서 사용하므로 sql의 뒤쪽에 위치
+				pstmt.setDouble(1, distance);
+				pstmt.setString(2, LaT);
+				pstmt.setString(3, LaT);
+			
+				return pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return -1;
+		}
+		
+		
+		
+		// 모든 와이파이 정보 삭제 함수
 		public void DelAllWifi() {
 			String sql = " delete from wifiinfo_total ";
 			
@@ -207,8 +238,29 @@ public class WifiInfoOption {
 				}
 			}
 		}
-}
 		
 		
-		
+		// 두 좌표 사이 거리 계산 함수
+		public static double getDistanceInKilometer(double latitude1, double longitude1, double latitude2, double longitude2) {
+		    double distance;
+		    double radius = 6371; // 지구 반지름(km)
+		    double toRadian = Math.PI / 180;
 
+		    double deltaLatitude = Math.abs(latitude1 - latitude2) * toRadian;
+		    double deltaLongitude = Math.abs(longitude1 - longitude2) * toRadian;
+
+		    double sinDeltaLat = Math.sin(deltaLatitude / 2);
+		    double sinDeltaLng = Math.sin(deltaLongitude / 2);
+		    double squareRoot = Math.sqrt(
+		        sinDeltaLat * sinDeltaLat +
+		        Math.cos(latitude1 * toRadian) * Math.cos(latitude2 * toRadian) * sinDeltaLng * sinDeltaLng);
+
+		    distance = 2 * radius * Math.asin(squareRoot);
+
+		    return distance;
+		}
+}
+
+		
+		
+		

@@ -4,7 +4,10 @@ package Mission1DB;
 public class WifiInfo {
 	// 데이터를 저장하는 wifi 정보에 대한 클래스
 		
-	// 17개
+	// 18개
+	
+		// 거리(Km)
+		private double DISTANCE;
 		// 관리번호
 		private  String X_SWIFI_MGR_NO;
 		// 자치구
@@ -32,21 +35,26 @@ public class WifiInfo {
 		// wifi접속환경
 		private  String X_SWIFI_REMARS3;
 		// X좌표
-		private  String LNT;
-		// Y좌표
 		private  String LAT;
+		// Y좌표
+		private  String LNT;
 		// 작업일자
 		private  String WORK_DTTM;
 		// 총 개수
-		private  Long list_total_count;
-
+		private  String list_total_count;
+	
 		
 
 
 	// Getter & Setter
 	// 외부에서 데이터에 접근하기 위해서는 Getter & Setter를 통해 접근
 
-		 
+		public double getDistance() {
+			 return DISTANCE;
+		 }
+		public void setDistance(double distance) {
+			 this.DISTANCE = distance;
+		}
 		public String getX_SWIFI_MGR_NO() {
 			return X_SWIFI_MGR_NO;
 		}
@@ -125,30 +133,31 @@ public class WifiInfo {
 		public void setX_SWIFI_REMARS3(String x_SWIFI_REMARS3) {
 			this.X_SWIFI_REMARS3 = x_SWIFI_REMARS3;
 		}
-		public String getLNT() {
-			return LNT;
-		}
-		public void setLNT(String lNT) {
-			this.LNT = lNT;
-		}
 		public String getLAT() {
 			return LAT;
 		}
 		public void setLAT(String lAT) {
 			this.LAT = lAT;
+		}		
+		public String getLNT() {
+			return LNT;
 		}
+		public void setLNT(String lNT) {
+			this.LNT = lNT;
+		}		
 		public String getWORK_DTTM() {
 			return WORK_DTTM;
 		}
 		public void setWORK_DTTM(String wORK_DTTM) {
 			this.WORK_DTTM = wORK_DTTM;
 		}
-		public Long getList_total_count() {
+		public String getList_total_count() {
 			 return list_total_count;
 		 }
-		public void setList_total_count(Long list_total_count) {
+		public void setList_total_count(String list_total_count) {
 			 this.list_total_count = list_total_count;
 		}
+		
 }
 
 		

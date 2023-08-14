@@ -1,6 +1,9 @@
 <%@page import="Mission1DB.WifiInfo" %>
 <%@page import="Mission1DB.WifiInfoOption" %>
+<%@page import="bookMark.BookMarkGroup" %>
+<%@page import="bookMark.BookMarkOption" %>
 <%@page import="java.io.PrintWriter" %>
+<%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>Insert title here</title>
+<title>와이파이 정보 구하기</title>
 <style>
       table {
         width: 100%;
@@ -37,52 +40,47 @@
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<a class= "navbar-brand" href="Mission1_Home.jsp">와이파이 정보 구하기</a>
-		</div>
-		<div class="collapse navbar-collapse" id="wifi-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="Histroy_List.jsp">위치 히스토리 목록</a></li>
-				<li><a href="WifiInfoLoad.jsp">Open API 와이파이 정보 가져오기</a></li>
-				<li><a href="BookmarkList.jsp">북마크 보기</a></li>
-				<li><a href="BookmarkGroup_Manage.jsp">북마크 그룹 관리</a></li>
-			</ul>
-		</div>
-	</nav>
-
 		<% 	
-		
 			String X_SWIFI_MGR_NO = request.getParameter("X_SWIFI_MGR_NO");
 			WifiInfoOption wifiInfoOpt = new WifiInfoOption();
 			WifiInfo wfInfo = wifiInfoOpt.wifiDetail(X_SWIFI_MGR_NO);
-
+			BookMarkOption bmkOption = new BookMarkOption();
+			ArrayList<BookMarkGroup> bmkList = bmkOption.getBmkNameList();
 		%>
 	<h2><b>와이파이 정보 구하기</b></h2>
 	<div>
 		<a href="Mission1_Home.jsp">홈</a> | <a href="History_List.jsp">위치 히스토리 목록</a> | <a href="WifiInfoLoad.jsp">Open API 와이파이 정보 가져오기</a>
 		| <a href="BookmarkList.jsp">북마크 보기</a> | <a href="BookmarkGroup_Manage.jsp">북마크 그룹 관리</a>
 		<br></br>
-		<select> 
-  			<option value="">선택하세요</option> 
-  			<option value="apple">사과</option> 
-  			<option value="banana">바나나</option> 
-  			<option value="orange">오렌지</option> 
-		</select>&nbsp;&nbsp; 
-		<button>북마크 추가하기</button>&nbsp;&nbsp;
 	</div>
-
-	<table >
+	
+	<div>
+		<form method="post" action="BookmarkGroup_addListAction.jsp">
+			<select name="bmkName">
+				<option>북마크 그룹 이름 선택</option>
+				<% 
+					for(int i=0; i < bmkList.size(); i++){
+				%>			 
+  					<option value=<%=bmkList.get(i).getBookmarkName() %>><%=bmkList.get(i).getBookmarkName() %></option>
+  				<% 
+					}
+				%>		 
+			</select>&nbsp;&nbsp; 
+			<input type="hidden" name="x_SWIFI_MAIN_NM" value=<%=wfInfo.getX_SWIFI_MAIN_NM() %>>
+			<input type="submit" value="북마크 추가하기" >&nbsp;&nbsp;
+		</form>
+	</div>
+	
+	<table>
 		<colgroup>
 			<col style="width: 45%;" />
 			<col style="width: 55%;" />
 		</colgroup>
 		<tbody>
-		
 			<tr>
 				<th>거리(Km)</th>
 				<td>
-					11
+
 				</td>
 			</tr>
 			<tr>
@@ -139,11 +137,11 @@
 			</tr>
 			<tr>
 				<th>X좌표</th>
-				<td><%=wfInfo.getLNT() %></td>
+				<td><%=wfInfo.getLAT() %></td>
 			</tr>
 			<tr>
 				<th>Y좌표</th>
-				<td><%=wfInfo.getLAT() %></td>
+				<td><%=wfInfo.getLNT() %></td>
 			</tr>
 			<tr>
 				<th>작업일자</th>
@@ -152,10 +150,12 @@
 			
 		</tbody>
 	</table>
-	<a href="NearWifiList.jsp" class="btn btn-primary">목록</a>
-	
+	<center>
+		<a href="NearWifiList.jsp" class="btn btn-primary">목록</a>
+	</center>
 
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
 </body>
 </html>

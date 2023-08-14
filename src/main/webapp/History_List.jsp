@@ -1,6 +1,7 @@
-<%@page import="DBtest.Member"%>
 <%@page import="java.util.List"%>
-<%@page import="DBtest.MemberService"%>
+<%@page import="history.HistoryList" %>
+<%@page import="history.HistoryListOption" %>
+<%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,24 +41,18 @@ tbody tr:nth-child(2n+1) {
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="Mission1_Home.jsp">와이파이 정보 구하기</a>
-		</div>
-		<div class="collapse navbar-collapse"
-			id="wifi-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="Histroy_List.jsp">위치 히스토리 목록</a></li>
-				<li><a href="WifiInfoLoad.jsp">Open API 와이파이 정보 가져오기</a></li>
-				<li><a href="BookmarkList.jsp">북마크 보기</a></li>
-				<li><a href="BookmarkGroup_Manage.jsp">북마크 그룹 관리</a></li>
-			</ul>
-		</div>
-	</nav>
 
 	<h2>
 		<b>위치 히스토리 목록</b>
 	</h2>
+	
+	<% 
+		int pageNumber = 1;
+		if (request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+	%>
+	
 	<div>
 		<a href="Mission1_Home.jsp">홈</a> | <a href="History_List.jsp">위치
 			히스토리 목록</a> | <a href="WifiInfoLoad.jsp">Open API 와이파이 정보 가져오기</a> | <a
@@ -65,13 +60,6 @@ tbody tr:nth-child(2n+1) {
 			href="BookmarkGroup_Manage.jsp">북마크 그룹 관리</a> <br></br>
 	</div>
 	
-	<% 
-			//String name = request.getParameter("name");	
-	
-			//MemberService memberService = new MemberService();
-			//Member member = memberService.detail(name);
-
-	%>
 
 	<table>
 		<thead>
@@ -86,20 +74,18 @@ tbody tr:nth-child(2n+1) {
 
 		<tbody>
 		<%
-
-			for (int i=0; i < 5; i++) {
+			HistoryListOption HistoryListOpt = new HistoryListOption();
+			ArrayList<HistoryList> historyList = HistoryListOpt.getHistoryList(pageNumber);
+			for (int i=0; i < historyList.size(); i++) {
 		%>
 			<tr>
-				<%-- 	<td><%= bmkList.get(i).getID() %></td>
-				<td><%= bmkList.get(i).getBookmarkName() %></a></td>
-				<td><%= bmkList.get(i).getRegisterNum() %></td>
-				<td><%= bmkList.get(i).getRegisterDate() %></td>
-				<td><%= bmkList.get(i).getEditDate() %></td> --%>
-				<td>11</td> 
-				<td>11</td> 
-				<td>11</td> 
-				<td>11</td> 
-				<td><button onclick="window.location.href='History_delAction.jsp'">삭제</button></td>
+				<td><%= historyList.get(i).getHistoryID() %></td>
+				<td><%= historyList.get(i).getLat() %></a></td>
+				<td><%= historyList.get(i).getLnt() %></td>
+				<td><%= historyList.get(i).getSearchDate() %></td>
+				<td>
+					<a href="History_delAction.jsp?historyID=<%=historyList.get(i).getHistoryID() %>" style="text-decoration-line:underline">삭제</a>
+				</td>			
 			</tr>
 		<%
 			}			

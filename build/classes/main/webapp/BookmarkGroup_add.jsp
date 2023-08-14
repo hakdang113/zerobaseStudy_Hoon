@@ -1,8 +1,7 @@
-
 <%@page import="java.util.List"%>
 <%@page import="bookMark.BookMarkOption" %>
 <%@page import="java.io.PrintWriter" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -40,20 +39,8 @@
 </head>
 
 <body>
-
-	<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<a class= "navbar-brand" href="Mission1_Home.jsp">와이파이 정보 구하기</a>
-		</div>
-		<div class="collapse navbar-collapse" id="wifi-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="Histroy_List.jsp">위치 히스토리 목록</a></li>
-				<li><a href="WifiInfoLoad.jsp">Open API 와이파이 정보 가져오기</a></li>
-				<li><a href="BookmarkList.jsp">북마크 보기</a></li>
-				<li><a href="BookmarkGroup_Manage.jsp">북마크 그룹 관리</a></li>
-			</ul>
-		</div>
-	</nav>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
 	
 	<h2><b>북마크 그룹 추가</b></h2>
 	<div>
@@ -62,18 +49,14 @@
 		<br></br>
 	</div>
 	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	
-	
+
 	<form method="post" action="BookmarkGroup_addAction.jsp">
 		<table>
-	<colgroup>
-		<col style="width: 30%;"/>
-		<col style="width: 70%;"/>
-	</colgroup>
+		<colgroup>
+			<col style="width: 30%;"/>
+			<col style="width: 70%;"/>
+		</colgroup>
 				<tbody>
-		
 					<tr>
 						<th>북마크 이름</th>
 						<td>
@@ -89,15 +72,9 @@
 				</tbody>
 		</table>
 		<center>
-			<button type="submit" class="btn btn-secondary ">추가</button>
 			<button class="btn btn-primary" align="center" >추가</button>
 		</center>
 	</form>
-
-
-
-
-
 
 </body>
 </html>

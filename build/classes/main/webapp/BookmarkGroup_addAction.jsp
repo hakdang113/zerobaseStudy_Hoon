@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="bookMark.BookMarkOption" %>	
 <%@page import="java.io.PrintWriter" %>
@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>Insert title here</title>
+<title>북마크 그룹 추가</title>
 </head>
 
 <%-- 북마크 그룹 추가 페이지에서 북마크 이름, 순서 번호를 입력 받아 추가 처리하는 페이지 --%>

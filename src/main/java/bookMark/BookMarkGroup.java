@@ -3,11 +3,11 @@ package bookMark;
 
 // DTO
 public class BookMarkGroup {
-	private int bookmarkID;
-	private String BookmarkName;
-	private int RegisterNum;
-	private String RegisterDate;
-	private String EditDate;
+	private int bookmarkID; // ID
+	private String BookmarkName; // 북마크 이름
+	private int RegisterNum; // 등록 순서
+	private String RegisterDate; // 추가 날짜 및 시간
+	private String EditDate; // 수정 날짜 및 시간
 	
 	
 	public BookMarkGroup() {

@@ -1,5 +1,4 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="bookMark.BookMarkGroup" %>
 <%@page import="bookMark.BookMarkOption" %>	
@@ -15,7 +14,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<title>Insert title here</title>
+<title>북마크 그룹 수정</title>
 </head>
 
 <%-- 북마크 그룹 관리 페이지에서 특정 번호(bookmarkID), 수정 이름, 수정 순서 번호를 매개변수로 하여 수정하는 페이지 --%>
@@ -47,6 +46,5 @@
 		}
 	%>
 	
-
 </body>
 </html>

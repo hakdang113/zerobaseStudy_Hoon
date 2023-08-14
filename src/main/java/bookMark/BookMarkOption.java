@@ -14,10 +14,10 @@ public class BookMarkOption {
 	private ResultSet rs;
 
 	
-	// WifiDAO
+	
 	public BookMarkOption() {
 		try {
-			String dbUrl = "jdbc:mariadb://192.168.219.102:3306/testdb3";
+			String dbUrl = "jdbc:mariadb://192.168.219.100:3306/testdb3";
 			String dbUserId = "testuser3";
 			String dbPassword = "zerobase";
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -85,7 +85,7 @@ public class BookMarkOption {
 	
 	// 북마크 그룹 추가 함수
 	public int addBookMarkGroup(String bookmarkName, int registerNum) {
-		String sql = " insert into bookmarkgroup values (?, ?, ?, ? ,? ,?) ";
+		String sql = " insert into bookmarkgroup values (?, ?, ?, ? ,?) ";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, getNext());
@@ -93,7 +93,6 @@ public class BookMarkOption {
 			pstmt.setInt(3, registerNum);
 			pstmt.setString(4, getDate());
 			pstmt.setString(5, getDate());
-			pstmt.setInt(6, 1);
 
 			return pstmt.executeUpdate();
 
@@ -102,10 +101,11 @@ public class BookMarkOption {
 		}
 		return -1;
 	}
-
+	
+	
 	
 	// 북마크 그룹 목록을 보여주는 함수
-	public ArrayList<BookMarkGroup> getBmkList(int pageNumber) {
+	public ArrayList<BookMarkGroup> getBmkGroupList(int pageNumber) {
 		String sql = "select * from bookmarkgroup where bookMarkId < ? order by bookmarkID desc limit 20";
 		ArrayList<BookMarkGroup> arrlist = new ArrayList<BookMarkGroup>();
 		try {
@@ -127,10 +127,29 @@ public class BookMarkOption {
 		}
 		return arrlist;
 	}
-
 	
+	
+	public ArrayList<BookMarkGroup> getBmkNameList() {
+		String sql = "select * from bookmarkgroup where bookMarkId ";
+		ArrayList<BookMarkGroup> arrlist = new ArrayList<BookMarkGroup>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BookMarkGroup bmarkGroup = new BookMarkGroup();
+				bmarkGroup.setBookmarkName(rs.getString(2));
+				arrlist.add(bmarkGroup);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrlist;
+	}
+	
+
 	// 특정 번호(bookmarkID)의 북마크 데이터를 가져오는 함수
-	public BookMarkGroup getBmkg(int bookmarkID) {
+	public BookMarkGroup getBmkG(int bookmarkID) {
 		String sql = " select * from bookmarkgroup where bookmarkID = ? ";
 		BookMarkGroup bmkGroup = null;
 
@@ -161,9 +180,10 @@ public class BookMarkOption {
 		}
 		return bmkGroup;
 	}
+	
 
 	
-	// 특정 번호(bookmarkID)의 북마크를 지우는 함수
+	// 특정 번호(bookmarkID)의 북마크를 삭제하는 함수
 	public int delBookmarkGroup(int bookmarkID) {
 		String sql = " delete from bookmarkgroup where bookmarkID = ? ";
 
@@ -179,20 +199,5 @@ public class BookMarkOption {
 	}
 
 	
-	public boolean isNextPage(int pageNumber) {
-		String sql = "select * from bookmarkgroup where bookMarkId < ? And insertName_available = 1 ";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
-			rs = pstmt.executeQuery();
-			if (rs.next()) { // 결과가 존재한다면
-				return true; // true로 리턴 => 다음 페이지로 넘어갈 수 있음
-			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return false; // 다음 페이지로 넘어갈 수 없음
-	}
 }

@@ -1,36 +1,37 @@
 package history;
 
+
 public class HistoryList {
-	private String historyID;
-	private String LNT;
-	private String LAT;
-	private String SearchDate;
+	private int historyID; // ID
+	private double LAT; // X좌표
+	private double LNT; // Y좌표
+	private String SearchDate; // 조회 날짜 및 시간
 	
 	
 	
-	public String getHistoryID() {
+	public int getHistoryID() {
 		return historyID;
 	}
-	public void setHistoryID(String historyID) {
+	public void setHistoryID(int historyID) {
 		this.historyID = historyID;
 	}
-	public String getLNT() {
-		return LNT;
-	}
-	public void setLNT(String lNT) {
-		LNT = lNT;
-	}
-	public String getLAT() {
+	public double getLat() {
 		return LAT;
 	}
-	public void setLAT(String lAT) {
-		LAT = lAT;
+	public void setLat(double lat) {
+		this.LAT = lat;
+	}
+	public double getLnt() {
+		return LNT;
+	}
+	public void setLnt(double lnt) {
+		this.LNT = lnt;
 	}
 	public String getSearchDate() {
 		return SearchDate;
 	}
 	public void setSearchDate(String searchDate) {
-		SearchDate = searchDate;
+		this.SearchDate = searchDate;
 	}
 	
 }
