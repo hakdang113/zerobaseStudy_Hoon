@@ -34,7 +34,7 @@
 	
 		String totalCnt = "";
 	
-		for (int k = 1; k <= 30; k++) {
+		for (int k = 1; k <= 23331; k++) {
 	
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /* URL */
 		urlBuilder.append(
